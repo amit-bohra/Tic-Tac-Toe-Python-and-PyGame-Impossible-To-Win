@@ -200,6 +200,7 @@ def winningcheck(length,chosen):
     flag=1
     cheat=[1,3,7,9]
     put=[2,4,6,8]
+    dinni={7:[2,6],9:[4,2],1:[8,6],3:[4,8]}
     if len(antiprint)==1 and len(donelist)==2:
         for vals in win_combo:
             if donelist[0] in vals and donelist[1] in vals:
@@ -208,8 +209,19 @@ def winningcheck(length,chosen):
                 if chosen not in antiprint and chosen not in donelist:
                     someonewinning=0
                     return chosen
-        if donelist[0] in cheat and donelist[1] in cheat:
+        if donelist[0] in cheat or donelist[1] in cheat:
             chosen=rd.choice(put)
+            if chosen not in antiprint and chosen not in donelist:
+                someonewinning=0
+                return chosen
+        if donelist[0] in put and donelist[1] in put:
+            chosen=rd.choice(cheat)
+            for key,vals in dinni.items():
+                tmp=chosen
+                if donelist[0] in vals and donelist[1] in vals and chosen==key:
+                    chosen=rd.choice(cheat)
+                    while(chosen==tmp):
+                        chosen=rd.choice(cheat)
             if chosen not in antiprint and chosen not in donelist:
                 someonewinning=0
                 return chosen
