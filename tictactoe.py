@@ -17,8 +17,8 @@ gameloop=True
 clock=pygame.time.Clock()
 xrange=[0]
 yrange=[0]
-image0=pygame.image.load('0.jpg').convert_alpha()
-imagex=pygame.image.load('x.jpg').convert_alpha()
+image0=pygame.image.load('re.png').convert_alpha()
+imagex=pygame.image.load('close.png').convert_alpha()
 imager=pygame.image.load('re.png').convert_alpha()
 imagec=pygame.image.load('close.png').convert_alpha()
 text_size=32
@@ -203,21 +203,9 @@ def winningcheck(length,chosen):
     rd.shuffle(put)
     rd.shuffle(cheat)
     dinni={7:[2,6],9:[4,2],1:[8,6],3:[4,8]}
-    tinni={7:[2,6],9:[4,2],1:[8,6],3:[4,8]}
-    if len(donelist)==2:
-        if(donelist[0] in cheat and donelist[1] in put) or (donelist[1] in cheat and donelist[0] in put):
-            
-            chosen=rd.choice(cheat)
-            while chosen in antiprint or chosen in donelist:
-                chosen=rd.choice(cheat)
-            someonewinning=0
-            return chosen
-    if len(donelist)==2 and (5 in donelist and donelist[1] in cheat):
-        chosen=rd.choice(cheat)
-        while chosen in antiprint or chosen in donelist:
-            chosen=rd.choice(cheat)
-        someonewinning=0
-        return chosen
+    casey={8:[1,2,3],2:[7,8,9],4:[3,6,9],6:[1,4,7]}
+
+    
     if len(antiprint)==1 and len(donelist)==2:
         for vals in win_combo:
             if donelist[0] in vals and donelist[1] in vals:
@@ -226,7 +214,7 @@ def winningcheck(length,chosen):
                 if chosen not in antiprint and chosen not in donelist:
                     someonewinning=0
                     return chosen
-        if donelist[0] in cheat or donelist[1] in cheat:
+        if donelist[0] in cheat and donelist[1] in cheat:
             chosen=rd.choice(put)
             if chosen not in antiprint and chosen not in donelist:
                 someonewinning=0
@@ -242,6 +230,31 @@ def winningcheck(length,chosen):
             if chosen not in antiprint and chosen not in donelist:
                 someonewinning=0
                 return chosen
+    if len(donelist)==2 and (5 in donelist and donelist[1] in cheat):
+        chosen=rd.choice(cheat)
+        while chosen in antiprint or chosen in donelist:
+            chosen=rd.choice(cheat)
+        someonewinning=0
+        return chosen
+    if len(donelist)==2:
+        if(donelist[0] in cheat and donelist[1] in put) or (donelist[1] in cheat and donelist[0] in put):
+            for r,v in casey.items():
+                if donelist[0] ==r:
+                    tinky=[x for x in totallist if x not in v]
+                    chosen=rd.choice(tinky)
+                    print('tinky',tinky)
+                    print('chosen',chosen)
+                    while chosen in antiprint or chosen in donelist:
+                        chosen=rd.choice(tinky)
+                    someonewinning=0
+                    return chosen
+                elif donelist[1] ==r:
+                    tinky=[x for x in totallist if x not in v]
+                    chosen=rd.choice(tinky)
+                    while chosen in antiprint or chosen in donelist:
+                        chosen=rd.choice(tinky)
+                    someonewinning=0
+                    return chosen
     permdone=list(it.combinations(donelist,2))
     permanti=list(it.combinations(antiprint,2))
     if length>1:
