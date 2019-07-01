@@ -200,7 +200,24 @@ def winningcheck(length,chosen):
     flag=1
     cheat=[1,3,7,9]
     put=[2,4,6,8]
+    rd.shuffle(put)
+    rd.shuffle(cheat)
     dinni={7:[2,6],9:[4,2],1:[8,6],3:[4,8]}
+    tinni={7:[2,6],9:[4,2],1:[8,6],3:[4,8]}
+    if len(donelist)==2:
+        if(donelist[0] in cheat and donelist[1] in put) or (donelist[1] in cheat and donelist[0] in put):
+            
+            chosen=rd.choice(cheat)
+            while chosen in antiprint or chosen in donelist:
+                chosen=rd.choice(cheat)
+            someonewinning=0
+            return chosen
+    if len(donelist)==2 and (5 in donelist and donelist[1] in cheat):
+        chosen=rd.choice(cheat)
+        while chosen in antiprint or chosen in donelist:
+            chosen=rd.choice(cheat)
+        someonewinning=0
+        return chosen
     if len(antiprint)==1 and len(donelist)==2:
         for vals in win_combo:
             if donelist[0] in vals and donelist[1] in vals:
@@ -275,7 +292,7 @@ def youwon(listy):
 
 
 
-                           
+center=0                          
 vflag=0    
 vcount=0
 hflag=0
@@ -289,7 +306,6 @@ clickhua2=False
 cheatingflag=0
 while gameloop:
     if not gameover:
-        center=0
         font = pygame.font.Font('freesansbold.ttf', text_size)
         notdonelist=[x for x in totallist if x not in donelist if x not in antiprint]
         xrange.clear()
@@ -399,6 +415,7 @@ while gameloop:
                 lost+=1
             
     else:
+        center=0
         font = pygame.font.Font('freesansbold.ttf', text_size)
         scr=score(swidth,sheight,text_size)
         reflag=0
