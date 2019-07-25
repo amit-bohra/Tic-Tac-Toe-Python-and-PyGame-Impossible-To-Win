@@ -203,7 +203,7 @@ def winningcheck(length,chosen):
     rd.shuffle(put)
     rd.shuffle(cheat)
     dinni={7:[2,6],9:[4,2],1:[8,6],3:[4,8]}
-    casey={8:[1,2,3],2:[7,8,9],4:[3,6,9],6:[1,4,7]}
+    casey={8:[1,2,3,4,6],2:[4,6,7,8,9],4:[2,3,6,8,9],6:[1,2,4,7,8]}
 
     
     if len(antiprint)==1 and len(donelist)==2:
